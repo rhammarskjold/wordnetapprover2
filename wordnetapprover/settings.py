@@ -73,16 +73,10 @@ WSGI_APPLICATION = 'wordnetapprover.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+import dj_database_url
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'links_to_approve',
-        'USER': 'ryan',
-        'PASSWORD': '$Hammar123',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': dj_database_url.config()
 }
 
 
