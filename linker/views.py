@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from .forms import UploadFileForm
+import csv
 
 from .models import ProposedLink
 
@@ -26,11 +27,15 @@ def add_links(f):
 
 def upload_file(request):
     user = request.user
+    if not (user.is_authenticated and user.is_staff):
+        return render(request, 'linker/upload.html', {
+            'error_message': "You do not have permission to upload files"
+        })
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         message = add_links(myfile)
         return render(request, 'linker/upload.html', {
-            'last_link': message
+            'message': message
         })
     return render(request, 'linker/upload.html')
 
@@ -80,3 +85,23 @@ def rate_link(request, s1id, s2id, rating):
             'error_message': "no such propossed link",
         })
     return get_link(request, user)
+
+def get_and_remove_evaluated(request, delete):
+    
+    user = request.user
+    if delete and not (user.is_authenticated and user.is_staff):
+        return render(request, 'linker/download.html', {
+            'error_message': "You do not have permission to delete links"
+        })
+    
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="approved_links.csv"'
+    writer = csv.writer(response)
+    writer.writerow(["user", "synset1id", "synset2id", "link weight"])
+    all_links = ProposedLink.objects.all()
+    for link in all_links:
+        if link.link_weight > 0:
+            writer.writerow([link.assigned_user, link.synset1id, link.synset2id, link.link_weight])
+            if delete == 1:
+                link.delete()
+    return HttpResponse(response)
