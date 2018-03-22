@@ -27,24 +27,38 @@ def add_links(f):
 
 def upload_file(request):
     user = request.user
-    if not (user.is_authenticated and user.is_staff):
+    if not user.is_authenticated:
         return render(request, 'linker/upload.html', {
+            'user': user.username,
+            'admin': user.is_staff,
+            'error_message': "You do not have permission to upload files"
+        })
+    if not user.is_staff:
+        return render(request, 'linker/upload.html', {
+            'user': user.username,
+            'admin': user.is_staff,
             'error_message': "You do not have permission to upload files"
         })
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         message = add_links(myfile)
         return render(request, 'linker/upload.html', {
+            'user': user.username,
+            'admin': user.is_staff,
             'message': message
         })
-    return render(request, 'linker/upload.html')
+    return render(request, 'linker/upload.html', {
+            'user': user.username,
+            'admin': user.is_staff,
+        })
 
 def link(request):
     user = request.user
     if not user.is_authenticated:
         return render(request, 'linker/evaluate.html', {
-            'user': user,
-            'error_message': "no such user",
+            'user': user.username,
+            'admin': user.is_staff,
+            'error_message': "not logged in",
         })
     return get_link(request, user)
 
@@ -53,12 +67,14 @@ def get_link(request, user):
         link = ProposedLink.objects.filter(assigned_user=user.username, link_weight=0)[0]
     except (KeyError, IndexError):
         return render(request, 'linker/evaluate.html', {
-            'user': user,
+            'user': user.username,
+            'admin': user.is_staff,
             'error_message': "No more links to evaluate for this user",
         })
     else :
         context = {
-            "user": user,
+            'user': user.username,
+            'admin': user.is_staff,
             "s1": link.synset1(),
             "s2": link.synset2()
         }
@@ -68,12 +84,14 @@ def rate_link(request, s1id, s2id, rating):
     user = request.user
     if not user.is_authenticated:
         return render(request, 'linker/evaluate.html', {
-            'user': user,
-            'error_message': "no such user",
+            'user': user.username,
+            'admin': user.is_staff,
+            'error_message': "not logged in",
         })
     if rating < 0:
         return render(request, 'linker/evaluate.html', {
-            'user': user,
+            'user': user.username,
+            'admin': user.is_staff,
             'error_message': "invalid rating value",
         })
     try:
@@ -81,7 +99,8 @@ def rate_link(request, s1id, s2id, rating):
         possible_link.assign_weight(rating)
     except (KeyError, ProposedLink.DoesNotExist):
         return render(request, 'linker/evaluate.html', {
-            'user': user,
+            'user': user.username,
+            'admin': user.is_staff,
             'error_message': "no such propossed link",
         })
     return get_link(request, user)
@@ -90,7 +109,9 @@ def get_and_remove_evaluated(request, delete):
     
     user = request.user
     if delete and not (user.is_authenticated and user.is_staff):
-        return render(request, 'linker/download.html', {
+        return render(request, 'base.html', {
+            'user': user.username,
+            'admin': user.is_staff,
             'error_message': "You do not have permission to delete links"
         })
     

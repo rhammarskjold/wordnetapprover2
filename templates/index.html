@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Intructions for WordNet Approvers</h2>
+<p>Thank you for agreeing to help with my research into adding links to WordNet. WordNet is a lexical database that holds information on words and word meanings in the English language. It has become an invaluable resource for much linguistics and natural language processing research. Your work will help increase both the performance of WordNet in key tasks and our understanding of the English language. 
+<br><br>
+One of WordNet's key features is the links that relate different word meanings. One of the most common links currently in WordNet is the Hypernym link which tells us that for example that "chair" is a type of "furniture." My research focuses on adding new cross-part-of-speech arcs to WordNet, specifically action links that link noun and verb synsets. 
+</p>
+<h3>Key Points of Understanding</h3>
+
+<p>
+    <h5>Synset:</h5> 
+    A synset in WordNet is a particular word meaning. A word may be associated with multiple synsets and a synset may be associated with multiple words. The key pieces of information for a synset are the words associated with it, its part-of-speech, and its definition. An example of a noun synset has the words "sovereign", "crowned head", and "monarch" and the definition "a nation's ruler or head of state usually by hereditary right." An example of a verb synset has the words "sail," "navigate," and "voyage" and the definition "travel on water propelled by wind or by other means"
+</p>
+<p>
+    <h5>Action Link:</h5>
+    An action link is a link between a noun synset and verb synset. This link is meant to encode a relationship where the verb represents an action heavily associated with the noun synset. The noun may either be the object or subject of the verb, but the verb synset must represent one of the primary actions associated with the noun synset. Some examples are:
+    <ul>
+        <li>("Ambulance": "a vehicle that takes people to and from hospitals") and ("drive": "cause someone or something to move by driving")</li>
+        <li>("Ambulance": "a vehicle that takes people to and from hospitals") and ("transport," "carry": "move while supporting, either in a vehicle or in one's hands or on one's body")</li>
+        <li>("wire":  "ligament made of metal and used to fasten things or make cages or fences etc") and ("forge", "form", "mold": make something, usually for a specific function")</li>
+    </ul>
+    The synsets ("sovereign", "crowned head" "monarch": "a nation's ruler or head of state") and ("fish": "catch or try to catch fish or shellfish") should not be considered action linked because while a king or queen can fish it's not necessarily an action heavily associated with a monarch. 
+</p>
+<h3>Your Task</h3>
+<p>
+    For your task, you will be presented with a set of proposed action links between two synsets. Each proposed link will feature a noun synset and a verb synset and you will be presented with the definition and words for both synsets. Your job will be to rate these links on a scale from 1-5 (1 representing no relationship and 5 representing an action relationship that is as good as or better than the examples above.) Please keep in mind the following:
+    <ul>
+        <li><b>Pay attention to the definition.</b> Words can be associated with multiple synsets, please make sure not to link synsets where the word meaning being referenced is not action linked to the other synset. For example, the synsets ("Ambulance": "a vehicle that takes people to and from hospitals") and ("drive": "strike with a driver, as in teeing off") <b>should not</b> be action linked as the meaning of drive referenced is not an action associated with an ambulance. </li>
+    </ul>
+</p>
+
+{% endblock %}

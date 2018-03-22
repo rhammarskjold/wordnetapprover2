@@ -1,56 +1,69 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-    box-sizing: border-box;
-}
+{% extends "base.html" %}
 
-/* Create two equal columns that floats next to each other */
-.column1 {
-    float: left;
-    width: 50%;
-    padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
-}
-/* Create two equal columns that floats next to each other */
-.column2 {
-    float: left;
-    width: 10%;
-    padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
-}
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-</style>
-{% if error_message %}
-<h1>{{error_message}}</h1>
-{% else %}
-<h>Should these synsets be linked?</h>
-<div class="row">
-    <div class='column1'>
-        <p>{{s1.id}}: {{s1.pos}} <br>
-        {{s1.def}}. <br>Words:</p>
-        {%for w in s1.words%}
-        <li>{{w}}</li>
-        {%endfor%}
-    </div>
-    <div class='column1'>
-        <p>{{s2.id}}: {{s1.pos}} <br>
-        {{s2.def}}. <br>Words:</p>
-        {%for w in s2.words%}
+{%block extra_style %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create two equal columns that floats next to each other */
+    .column1 {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+    /* Create two equal columns that floats next to each other */
+    .column2 {
+        float: left;
+        width: 20%;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+    }
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h3>Should these synsets be linked?</h3>
+    <div class="row">
+        <div class='column1'>
+            <h4>{{s1.id}}: {{s1.pos}}</h4> <br>
+            <b>Definition: </b>{{s1.def}}. <br><br><b>Words:</b>
+            {%for w in s1.words%}
             <li>{{w}}</li>
-        {%endfor%}
+            {%endfor%}
+        </div>
+        <div class='column1'>
+            <h4>{{s2.id}}: {{s2.pos}}</h4> <br>
+            <b>Definition: </b>{{s2.def}}. <br><br><b>Words:</b>
+            {%for w in s2.words%}
+                <li>{{w}}</li>
+            {%endfor%}
+        </div>
     </div>
-</div>
-<div class="row">
-I would rate this link: <br>
-<div class='column2'><a href="/linker/rate/{{s1.id}}/{{s2.id}}/1">1: not related</a></div>
-<div class='column2'><a href="/linker/rate/{{s1.id}}/{{s2.id}}/2">2: mostly not ralted</a></div>
-<div class='column2'><a href="/linker/rate/{{s1.id}}/{{s2.id}}/3">3: somewhat related</a></div>
-<div class='column2'><a href="/linker/rate/{{s1.id}}/{{s2.id}}/4">4: related</a></div>
-<div class='column2'><a href="/linker/rate/{{s1.id}}/{{s2.id}}/5">5: very related</a></div>
-</div>
-{% endif %}
+    <div class="row">
+        I would rate this link: <br>
+        <div class='column2'>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/1">1: not related</a>
+        </div>
+        <div class='column2'>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/2">2: mostly not related</a>
+        </div>
+        <div class='column2'>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/3">3: somewhat related</a>
+        </div>
+        <div class='column2'>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/4">4: related</a>
+        </div>
+        <div class='column2'>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/5">5: very related</a>
+        </div>
+    </div>
+{% endblock %}
