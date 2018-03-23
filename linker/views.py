@@ -6,18 +6,18 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import authenticate, login, logout
 from .forms import UploadFileForm
-import csv
+import csv, io
 
 from .models import ProposedLink
 
 def add_links(f):
     message = ""
-    for row in f:
-        r = row.decode("utf-8").split(",")
-        if len(r) != 9:
+    reader = csv.reader(io.StringIO(f.read().decode('utf-8')))
+    for row in reader:
+        if len(row) != 9:
             message += ("malformed_line: %s\n" % row)
-        un, s1id, s2id, s1pos, s2pos = r[0], r[1], r[2], r[3], r[4]
-        s1words, s2words, s1def, s2def = r[5], r[6], r[7], r[8],
+        un, s1id, s2id, s1pos, s2pos = row[0], row[1], row[2], row[3], row[4]
+        s1words, s2words, s1def, s2def = row[5], row[6], row[7], row[8]
         l = ProposedLink(assigned_user=un, synset1id=int(s1id), synset2id=int(s2id), synset1pos=s1pos, synset2pos=s2pos,
                          synset1words=s1words, synset2words=s2words, synset1def=s1def, synset2def=s2def)
         l.save()
