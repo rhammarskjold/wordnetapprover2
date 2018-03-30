@@ -12,14 +12,14 @@
         float: left;
         width: 50%;
         padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
+        min-height: 300px; /*Should be removed. Only for demonstration */
     }
     /* Create two equal columns that floats next to each other */
     .column2 {
         float: left;
         width: 20%;
         padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
+        /*height: 300px; Should be removed. Only for demonstration */
     }
     /* Clear floats after the columns */
     .row:after {
@@ -63,7 +63,7 @@
             <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/4">4: related</a>
         </div>
         <div class='column2'>
-            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/5">5: very related</a>
+            <a class="btn" href="/linker/rate/{{s1.id}}/{{s2.id}}/5">5: definetly related</a>
         </div>
     </div>
 {% endblock %}

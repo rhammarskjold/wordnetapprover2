@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Intructions for WordNet Approvers</h2>
+<h2>Instructions for WordNet Approvers</h2>
 <p>Thank you for agreeing to help with my research into adding links to WordNet. WordNet is a lexical database that holds information on words and word meanings in the English language. It has become an invaluable resource for much linguistics and natural language processing research. Your work will help increase both the performance of WordNet in key tasks and our understanding of the English language. 
 <br><br>
-One of WordNet's key features is the links that relate different word meanings. One of the most common links currently in WordNet is the Hypernym link which tells us that for example that "chair" is a type of "furniture." My research focuses on adding new cross-part-of-speech arcs to WordNet, specifically action links that link noun and verb synsets. 
+One of WordNet's key features is the links that relate different word meanings. One of the most common links currently in WordNet is the Hypernym link which tells us that for example that "chair" is a type of "furniture." My research focuses on adding new cross-part-of-speech links to WordNet, specifically action links that link noun and verb synsets. 
 </p>
 <h3>Key Points of Understanding</h3>
 
@@ -20,13 +20,14 @@ One of WordNet's key features is the links that relate different word meanings. 
         <li>("Ambulance": "a vehicle that takes people to and from hospitals") and ("transport," "carry": "move while supporting, either in a vehicle or in one's hands or on one's body")</li>
         <li>("wire":  "ligament made of metal and used to fasten things or make cages or fences etc") and ("forge", "form", "mold": make something, usually for a specific function")</li>
     </ul>
-    The synsets ("sovereign", "crowned head" "monarch": "a nation's ruler or head of state") and ("fish": "catch or try to catch fish or shellfish") should not be considered action linked because while a king or queen can fish it's not necessarily an action heavily associated with a monarch. 
+    The synsets ("sovereign", "crowned head" "monarch": "a nation's ruler or head of state") and ("fish": "catch or try to catch fish or shellfish") should not be considered action linked because while a king or queen can fish it's not an action heavily associated with a monarch. 
 </p>
 <h3>Your Task</h3>
 <p>
     For your task, you will be presented with a set of proposed action links between two synsets. Each proposed link will feature a noun synset and a verb synset and you will be presented with the definition and words for both synsets. Your job will be to rate these links on a scale from 1-5 (1 representing no relationship and 5 representing an action relationship that is as good as or better than the examples above.) Please keep in mind the following:
     <ul>
-        <li><b>Pay attention to the definition.</b> Words can be associated with multiple synsets, please make sure not to link synsets where the word meaning being referenced is not action linked to the other synset. For example, the synsets ("Ambulance": "a vehicle that takes people to and from hospitals") and ("drive": "strike with a driver, as in teeing off") <b>should not</b> be action linked as the meaning of drive referenced is not an action associated with an ambulance. </li>
+        <li><b>Pay attention to the definition!</b>This is <b>SUPER</b> important! Words can be associated with multiple synsets, please make sure not to link synsets where the word meaning being referenced is not action linked to the other synset. For example, the synsets ("Ambulance": "a vehicle that takes people to and from hospitals") and ("drive": "strike with a driver, as in teeing off") <b>should not</b> be action linked as the meaning of drive referenced is not an action associated with an ambulance. This can get rather confusing as there can be some overlap between synsets. You can look at the synsets in <a href="http://wordnetweb.princeton.edu/perl/webwn">WordNet</a> here to make sure that the synset you select is the best match.</li>
+        <li><b>Take your time but don’t overthink it.</b> If the verb synset is not an action related to the noun synset rate the link a one, if it represents one of the primary actions related to that noun rate it a 5. In our experience only around 20% of links should be rated either 4 or 5, but that will vary a good amount on the specific batch that you are assigned.</li>
     </ul>
 </p>
 
